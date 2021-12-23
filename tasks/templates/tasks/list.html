@@ -8,9 +8,20 @@
 </head>
 <body>
     <h3>To do</h3>
+    <form method="post" action="/">
+        {% csrf_token%}
+        {{form.title}}
+        <input type="submit" value="Add" />
+    </form>
     {% for task in tasks %}
     <div>
-        <p>{{task.title}}</p>
+        <a href="{% url 'update' task.id %}">Update</a>
+        <a href="{% url 'delete' task.id %}">Delete</a>
+        {% if task.complete %}
+        <p><strike>{{task.title}}</strike></p>
+        {% else %}
+            <p>{{task.title}}</p>
+        {% endif %}
     </div>
     {% endfor %}
 </body>
